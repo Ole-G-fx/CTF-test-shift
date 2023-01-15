@@ -15,6 +15,7 @@ public abstract class OutStreamImpl <T> implements OutStream{
     public <T>OutStreamImpl(String fileName){
 
         try {
+
             writer = new BufferedWriter(new FileWriter(fileName));
         } catch (IOException e) {
 
@@ -25,6 +26,7 @@ public abstract class OutStreamImpl <T> implements OutStream{
     public <T>OutStreamImpl(String fileName, int bufferedSize){
 
         try {
+
             writer = new BufferedWriter(new FileWriter(fileName), bufferedSize);
         } catch (IOException e) {
 
@@ -40,8 +42,10 @@ public abstract class OutStreamImpl <T> implements OutStream{
     public void close() {
 
         try {
+
             writer.close();
         } catch (IOException e) {
+
             new WrongException("Файл не найден или недоступен '" +
                     "' системное сообщение:\n" + e.getMessage());
         }

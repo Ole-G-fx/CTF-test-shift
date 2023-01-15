@@ -10,10 +10,12 @@ import java.io.IOException;
  */
 public class OutStreamString <T> extends OutStreamImpl{
     public OutStreamString(String fileName) {
+
         super(fileName);
     }
 
     public OutStreamString(String fileName, int bufferedSize) {
+
         super(fileName, bufferedSize);
     }
 
@@ -28,10 +30,13 @@ public class OutStreamString <T> extends OutStreamImpl{
      */
     @Override
     public void setNext(String out) {
+
         try {
+
             writer.write(out);
             writer.newLine();
         } catch (IOException e) {
+
             new WrongException("Файл не найден или недоступен '" +
                     "' системное сообщение:\n" + e.getMessage());
         }

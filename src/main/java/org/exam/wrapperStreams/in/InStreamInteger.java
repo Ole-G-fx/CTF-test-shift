@@ -13,11 +13,13 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
     private Integer currentElement;
 
     public InStreamInteger(String fileName, boolean ascending) {
+
         super(fileName, ascending);
         this.getNext();
     }
 
     public InStreamInteger(String fileName, int lengthBuffer, boolean ascending) {
+
         super(fileName, lengthBuffer, ascending);
         this.getNext();
     }
@@ -40,6 +42,7 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
 
                 line = super.reader.readLine();
             } catch (IOException e) {
+
                 new WrongException("Неудача при чтении элемента, ошибка ввода/вывода, '" + line +
                         "' системное сообщение:\n" + e.getMessage());
                 next = true;
@@ -49,6 +52,7 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
 
                 input = Integer.parseInt(line);
             } catch (NumberFormatException e) {
+
                 new WrongException("Неверный формат значения, строки '" + line +
                         "' в файле: " + super.fileName + "\n"
                         + " невозможно определить значение, возможно повреждены данные.");
@@ -83,6 +87,7 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
      */
     @Override
     public Integer getCurrentElement() {
+
         return currentElement;
     }
 
@@ -95,8 +100,10 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
     public Integer getValue() {
 
         if (super.ascending) {
+
             return Integer.MAX_VALUE;
         } else {
+
             return Integer.MIN_VALUE;
         }
     }
@@ -110,8 +117,10 @@ public class InStreamInteger<T> extends InStreamAbsImpl {
     public boolean compare(Integer inputElement) {
 
         if (super.ascending) {
+
             return (currentElement < inputElement);
         } else {
+
             return (currentElement > inputElement);
         }
     }

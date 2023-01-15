@@ -13,10 +13,12 @@ public class InStreamString<T> extends InStreamAbsImpl {
 
     private String currentElement;
     public InStreamString(String fileName, boolean ascending){
+
         super(fileName, ascending);
         this.getNext();
     }
     public InStreamString(String fileName, int lengthBuffer, boolean ascending){
+
         super(fileName, lengthBuffer, ascending);
         this.getNext();
     }
@@ -35,29 +37,34 @@ public class InStreamString<T> extends InStreamAbsImpl {
             next = false;
             String line = null;
             try {
+
                 line = super.reader.readLine();
             } catch (IOException e) {
+
                 new WrongException("Неудача при чтении элемента, ошибка ввода/вывода, '" + line +
                         "' системное сообщение:\n" + e.getMessage());
             }
-
             if (line == null) return null;
-
             input = line;
             if ((input.equals(""))||input.contains(" ")) {
+
                 new WrongException("Неверный формат значения, строки '" + line +
                         "' в файле: " + super.fileName + "\n" + " невозможно определить значение, возможно повреждены данные.");
                 next = true;
                 continue;
             }
             if (super.ascending) {
+
                 if (currentElement != null && (currentElement.compareTo(input) > 0)) {
+
                     new WrongException("Исходный файл не упорядочен, элемент со значением '" + input +
                             "' в файле: " + super.fileName + "\n" + " возможно повреждены данные.");
                     next = true;
                 }
             } else {
+
                 if (currentElement != null && (currentElement.compareTo(input) < 0)) {
+
                     new WrongException("Исходный файл не упорядочен, элемент со значением '" + input +
                             "' в файле: " + super.fileName + "\n" + " возможно повреждены данные.");
                     next = true;
@@ -85,8 +92,10 @@ public class InStreamString<T> extends InStreamAbsImpl {
     public String getValue(){
 
         if (super.ascending) {
+
             return String.valueOf(Character.MAX_VALUE);
         } else {
+
             return String.valueOf(Character.MIN_VALUE);
         }
     };
@@ -101,9 +110,11 @@ public class InStreamString<T> extends InStreamAbsImpl {
 
         int cmp = (currentElement.compareTo(inputElement));
         if (super.ascending) {
+
             if (cmp < 0) return true;
             return false;
         } else {
+
             if (cmp > 0) return true;
             return false;
         }

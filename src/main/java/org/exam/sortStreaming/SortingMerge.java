@@ -25,12 +25,14 @@ public class SortingMerge {
         writer = ParsArgsAndCreateStreams.parsing(readers, args);
         Collection<InStream> copy_readers = new ArrayList<>();
         for (InStream reader : readers){
+
             copy_readers.add(reader);
         }
         sortIt();
 
         writer.close();
         for (InStream reader: copy_readers) {
+
             reader.close();
         }
         new WrongException("Программа выполнена успешно, данные отсортированы результат записан в файл");
@@ -49,15 +51,17 @@ public class SortingMerge {
         while (readers.size() > 0){
 
             for (InStream reader : readers) {
+
                 if (reader.compare(minMax)) {
+
                     minMax = reader.getCurrentElement();
                     element = reader;
                 }
             }
             writer.setNext(minMax);
             minMax = element.getValue();
-            if (element.getNext() == null)
-            {
+            if (element.getNext() == null){
+
                 readers.remove(element);
             };
         }

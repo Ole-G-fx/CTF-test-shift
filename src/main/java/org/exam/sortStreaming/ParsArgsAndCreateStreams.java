@@ -36,6 +36,7 @@ import java.util.Collection;
  *     в конструктор другого класса
  */
 public class ParsArgsAndCreateStreams {
+
     private static OutStream writer;
     private static boolean isInteger;
     private static boolean ascending = true;
@@ -79,10 +80,12 @@ public class ParsArgsAndCreateStreams {
                 }
             }
             if (isFirstNameFile) {
+
                 throw new RuntimeException("Отсутствует необходимый параметор (output.txt) в формате: "
                         + "java -jar program.jar -i(-s) -a output.txt input1.txt input2.txt input3.txt");
             }
             if (amountInputFiles < 1) {
+
                 throw new RuntimeException("Отсутствует необходимый параметор (input.txt) в формате: "
                         + "java -jar program.jar -i(-s) -a output.txt input1.txt input2.txt input3.txt");
             }
@@ -123,6 +126,7 @@ public class ParsArgsAndCreateStreams {
             }
         }
         if (!existRequiredParameter) {
+
             throw new RuntimeException("Отсутствует необходимый параметор ('i' или 's') в формате: "
                     + "java -jar program.jar -i(-s) -a output.txt input1.txt input2.txt input3.txt");
         }
@@ -136,15 +140,21 @@ public class ParsArgsAndCreateStreams {
 
         OutStream outStream;
         if (lengthBufferUse) {
+
             if (isInteger) {
+
                 outStream = new <Integer>OutStreamInteger(arg, lengthBuffer);
             } else {
+
                 outStream = new <String>OutStreamString(arg, lengthBuffer);
             }
         } else {
+
             if (isInteger) {
+
                 outStream = new <Integer>OutStreamInteger(arg);
             } else {
+
                 outStream = new <String>OutStreamString(arg);
             }
         }
@@ -162,26 +172,34 @@ public class ParsArgsAndCreateStreams {
 
             InStream inStream = null;
             if (lengthBufferUse) {
+
                 if (isInteger) {
+
                     inStream = new <Integer>InStreamInteger(arg, lengthBuffer, ascending);
                 } else {
+
                     inStream = new <String>InStreamString(arg, lengthBuffer, ascending);
                 }
             } else {
+
                 if (isInteger) {
+
                     inStream = new <Integer>InStreamInteger(arg, ascending);
                 } else {
+
                     inStream = new <String>InStreamString(arg, ascending);
                 }
             }
             if (inStream.getCurrentElement() == null) {
+
                 new WrongException("Файл '" + arg + "' пустой или поврежден \n" +
                         " выполнение будет продолжено без учета проврежденных данных");
-
             } else {
+
                 readers.add(inStream);
             }
         } else {
+
             new WrongException("Не найден или недоступен файл '" + arg +
                     "' выполнение программы продолжено \n");
         }
