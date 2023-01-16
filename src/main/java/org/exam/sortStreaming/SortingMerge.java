@@ -60,7 +60,10 @@ public class SortingMerge {
             }
             writer.setNext(minMax);
             minMax = element.getValue();
-            if (element.getNext() == null){
+            if (element.ready()) {
+
+                element.getNext();
+            } else {
 
                 readers.remove(element);
             };

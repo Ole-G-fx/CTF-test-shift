@@ -19,4 +19,5 @@ public interface InStream<T> {
     boolean compare(Integer inputElement);
     boolean compare(String inputElement);
     boolean compare(T inputElement);
+    boolean ready();
 }

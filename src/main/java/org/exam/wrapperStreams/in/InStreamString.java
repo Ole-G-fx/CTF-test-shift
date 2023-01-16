@@ -31,6 +31,7 @@ public class InStreamString<T> extends InStreamAbsImpl {
     @Override
     public String getNext() {
 
+        numberLine++;
         boolean next = true;
         String input = null;
         while (next) {
@@ -41,15 +42,21 @@ public class InStreamString<T> extends InStreamAbsImpl {
                 line = super.reader.readLine();
             } catch (IOException e) {
 
-                new WrongException("Неудача при чтении элемента, ошибка ввода/вывода, '" + line +
-                        "' системное сообщение:\n" + e.getMessage());
+                new WrongException("Неудача при чтении элемента № '" + numberLine + "', ошибка ввода/вывода, '"
+                        + line + "' системное сообщение:\n" + e.getMessage());
+                numberLine++;
             }
-            if (line == null) return null;
+
+            if (line == null)
+            {
+                return null;
+            }
             input = line;
             if ((input.equals(""))||input.contains(" ")) {
 
-                new WrongException("Неверный формат значения, строки '" + line +
-                        "' в файле: " + super.fileName + "\n" + " невозможно определить значение, возможно повреждены данные.");
+                new WrongException("Неверный формат в строке № '" + numberLine + "' значение: '" + line + "' в файле: "
+                        + super.fileName + "\n" + " невозможно определить значение, возможно повреждены данные.");
+                numberLine++;
                 next = true;
                 continue;
             }
@@ -57,16 +64,19 @@ public class InStreamString<T> extends InStreamAbsImpl {
 
                 if (currentElement != null && (currentElement.compareTo(input) > 0)) {
 
-                    new WrongException("Исходный файл не упорядочен, элемент со значением '" + input +
-                            "' в файле: " + super.fileName + "\n" + " возможно повреждены данные.");
+                    new WrongException("Исходный файл не упорядочен, элемент № '" + numberLine + "' со " +
+                            "значением '" + input + "' в файле: " + super.fileName + "\n" +
+                            " возможно повреждены данные.");
+                    numberLine++;
                     next = true;
                 }
             } else {
 
                 if (currentElement != null && (currentElement.compareTo(input) < 0)) {
 
-                    new WrongException("Исходный файл не упорядочен, элемент со значением '" + input +
-                            "' в файле: " + super.fileName + "\n" + " возможно повреждены данные.");
+                    new WrongException("Исходный файл не упорядочен, элемент № '" + numberLine + "' со значением '"
+                            + input + "' в файле: " + super.fileName + "\n" + " возможно повреждены данные.");
+                    numberLine++;
                     next = true;
                 }
             }

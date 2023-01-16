@@ -14,6 +14,7 @@ public abstract class InStreamAbsImpl <T> implements InStream{
     protected BufferedReader reader;
     protected boolean ascending;
     protected String fileName;
+    protected Long numberLine = 0L;
     public <T>InStreamAbsImpl(String fileName, boolean ascending){
 
         this.ascending = ascending;
@@ -55,6 +56,17 @@ public abstract class InStreamAbsImpl <T> implements InStream{
 
             new WrongException("Неудача при закрытии потока чтения, ошибка ввода/вывода," +
                     " системное сообщение:\n" + e.getMessage());
+        }
+    }
+    @Override
+    public boolean ready(){
+        try {
+            return reader.ready();
+        } catch (IOException e) {
+            new WrongException("Этого не должно было произойти, проверка на шотовность привела к краху, " +
+                    "однако элемент № '" + numberLine + "', ошибка ввода/вывода, системное сообщение:\n"
+                    + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
