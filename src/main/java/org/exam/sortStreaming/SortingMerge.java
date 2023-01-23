@@ -6,6 +6,7 @@ import org.exam.wrapperStreams.out.OutStream;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * SortingMerge Основной модуль управления проекта принимает управление от TaskFileMerging
@@ -62,7 +63,10 @@ public class SortingMerge {
             minMax = element.getValue();
             if (element.ready()) {
 
-                element.getNext();
+                if (Objects.isNull(element.getNext())) {
+
+                    readers.remove(element);
+                };
             } else {
 
                 readers.remove(element);
